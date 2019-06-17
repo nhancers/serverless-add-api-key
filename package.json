@@ -1,6 +1,6 @@
 {
-  "name": "serverless-add-api-key",
-  "version": "3.2.0",
+  "name": "serverless-add-api-key-with-usage-plan",
+  "version": "3.3.0",
   "description": "serverless plugin to create a api key and usage pattern (if they don't already exist) and associates then to the Rest Api",
   "main": "index.js",
   "scripts": {
@@ -8,20 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rrahul963/serverless-add-api-key.git"
-  },
-  "keywords": [
-    "api",
-    "key",
-    "api",
-    "gateway",
-    "usage",
-    "pattern"
-  ],
-  "author": "rahul.tulsian87@gmail.com",
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/rrahul963/serverless-add-api-key/issues"
+    "url": "git+https://github.com/nhancers/serverless-add-api-key.git"
   },
   "homepage": "https://github.com/rrahul963/serverless-add-api-key#readme",
   "dependencies": {
