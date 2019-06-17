@@ -333,7 +333,7 @@ const addApiKey = async (serverless, options) => {
 
       // if usage plan doesn't exist create one and associate the created api key with it.
       // if usage plan already exists then associate the key with it, if its not already associated.
-      //If usage plan does not exists then create one.
+      // If usage plan does not exists then create one.
       if (!usagePlan) {
         usagePlanId = await createUsagePlan(planName, awsCredentials.credentials, region, serverless.cli, usagePlanTemplate);
         usagePlan = { id: usagePlanId, apiStages: [] };

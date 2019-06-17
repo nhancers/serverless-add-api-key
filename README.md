@@ -77,6 +77,9 @@ custom:
       value:
         encrypted: A-KMS-Encrypted-Value
         kmsKeyRegion: us-west-1
+       usagePlan:
+        name: usage-plan-name
+        description: "Description" 
 ```
 
 When an object with `encrypted` and `kmsKeyRegion` key detected in `value`, the encrypted value will be decrypted using a proper KMS key from the region specified in `kmsKeyRegion`. In the case of missing `kmsKeyRegion`, the region from command line will be used.
