@@ -333,20 +333,22 @@ const addApiKey = async (serverless, options) => {
 
       // if usage plan doesn't exist create one and associate the created api key with it.
       // if usage plan already exists then associate the key with it, if its not already associated.
+      //If usage plan does not exists then create one.
       if (!usagePlan) {
         usagePlanId = await createUsagePlan(planName, awsCredentials.credentials, region, serverless.cli, usagePlanTemplate);
-        await createUsagePlanKey(apiKeyId, usagePlanId, awsCredentials.credentials, region, serverless.cli);
         usagePlan = { id: usagePlanId, apiStages: [] };
-      } else {
-        serverless.cli.consoleLog(`AddApiKey: ${chalk.yellow(`Usage plan ${planName} already exists, skipping creation.`)}`);
-        usagePlanId = usagePlan.id;
-        const existingKeys = await getUsagePlanKeys(usagePlanId, awsCredentials.credentials, region, serverless.cli);
-        if (!existingKeys.some(key => key.id === apiKeyId)) {
-          await createUsagePlanKey(apiKeyId, usagePlanId, awsCredentials.credentials, region, serverless.cli);
-        } else {
-          serverless.cli.consoleLog(`AddApiKey: ${chalk.yellow(`Usage plan ${planName} already has api key associated with it, skipping association.`)}`);
-        }
       }
+      else {
+        serverless.cli.consoleLog(`AddApiKey: ${chalk.yellow(`Usage plan ${planName} already exists, skipping creation.`)}`);
+      }
+      usagePlanId = usagePlan.id;
+      const existingKeys = await getUsagePlanKeys(usagePlanId, awsCredentials.credentials, region, serverless.cli);
+      if (!existingKeys.some(key => key.id === apiKeyId)) {
+        await createUsagePlanKey(apiKeyId, usagePlanId, awsCredentials.credentials, region, serverless.cli);
+      } else {
+        serverless.cli.consoleLog(`AddApiKey: ${chalk.yellow(`Usage plan ${planName} already has api key associated with it, skipping association.`)}`);
+      }
+
       await associateRestApiWithUsagePlan(serviceName, usagePlan, stage, awsCredentials.credentials, region, serverless.cli);
     } catch (error) {
       serverless.cli.consoleLog(`AddApiKey: ${chalk.yellow(`Failed to add api key the service. Error ${error.message || error}`)}`);
